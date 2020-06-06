@@ -210,6 +210,9 @@ int cpyFileWithBin(char* srcFile, char* desFile)
 	fclose(pFRead);
 	fclose(pFWrite);
 	
+	//rename("/home/delphi/myshare/GitHub/Linux/FileIO/data/FileIO.cpp", "/home/delphi/myshare/GitHub/Linux/FileIO/data/FileIObak.cpp");
+	unlink(desFile);
+	
 	return 0;
 }
 
