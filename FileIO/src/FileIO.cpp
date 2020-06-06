@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <dirent.h>
 
 using namespace std;
 
@@ -228,5 +230,43 @@ int createDirIfNoExist(char * filePath)
 	{
 		cout << "filePath [" << filePath << "] already exist！" << endl; 
 	}
-	
+}
+
+int readDir(char* filePath)
+{
+	if( 0 != access(filePath, F_OK) )
+	{
+		cout << "filePath [" << filePath << "] not exist！" << endl; 
+	}
+	else
+	{
+		DIR * pDir = NULL;
+		pDir = opendir(filePath);
+		
+		if(NULL == pDir)
+		{
+			cout << "open filePath [" << filePath << "] faild！" << endl; 
+		}
+		
+		struct dirent* m_dirent = NULL;
+		while(1)
+		{
+			m_dirent = readdir(pDir);
+			if(NULL != m_dirent)
+			{
+				if( !strncmp(m_dirent->d_name, ".", 1) )
+				{
+					continue;
+				}
+				cout <<"fileName = " << m_dirent->d_name << endl;
+				cout << "fileType = " << m_dirent->d_type << endl <<endl;
+			}
+			else
+			{
+				break;
+			}
+		}
+		
+		closedir(pDir);
+	}
 }

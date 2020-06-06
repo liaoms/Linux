@@ -9,4 +9,6 @@ int cpyFileWithBin(char* srcFile, char* desFile);
 
 int createDirIfNoExist(char * filePath);
 
+int readDir(char* filePath);
+
 #endif
