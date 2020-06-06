@@ -55,14 +55,23 @@ int txtFileTest()
 	for(; i<5; i++)
 	{
 		fprintf(pF, "%s\n", "Evrey thing is possible");
+		fflush(pF);  //强制将缓冲区写入文件
 	}
 	
-	//重新定位到文件开头
-	fseek(pF, 0, SEEK_SET);
+	// SEEK_SET:从文件头偏移   
+	// SEEK_CUR:从文件当前读取位置偏移 
+	// SEEK_END:从文件末尾位置偏移 
+	
+	//fseek(pF, 0, SEEK_SET);  // 方式一、重新定位到文件开头
+	
+	rewind(pF);		// 方式二、重新定位到文件开头
 	
 	char buf[1024] = {0};
 	while(1)
 	{
+		long index = ftell(pF);  //返回文件读取位置
+		printf("index = %ld  ", index);
+			
 		memset(buf, 0x00, sizeof(buf));
 		char* ret = fgets(buf, sizeof(buf), pF);
 		
@@ -72,6 +81,7 @@ int txtFileTest()
 		}
 		else
 		{
+			printf("\n");
 			break;
 		}
 	}
@@ -112,7 +122,7 @@ int binFileTest()
 	fwrite(&blobSize, 1, sizeof(int), pF);  //先写结构体大小
 	fwrite(&m_Jack, 1, blobSize, pF);		//再写结构体内容
 	
-	
+	fflush(pF);  //强制将缓冲区写入文件
 	
 	//重新定位到文件开头
 	fseek(pF, 0, SEEK_SET);
@@ -192,6 +202,7 @@ int cpyFileWithBin(char* srcFile, char* desFile)
 		}
 		
 		fwrite(&buf, 1, readLen, pFWrite);  
+		fflush(pFWrite);  //强制将缓冲区写入文件
 	}
 	
 		
