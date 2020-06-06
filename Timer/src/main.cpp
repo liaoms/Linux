@@ -12,5 +12,7 @@ int main(int argc, char* argv[])
 	getCurrentTime(cruTime, YYYYMMDDHHMMSS, -2);
 	
 	cout << cruTime << endl;
+	
+	getdifTime();
 	return 0;
 }

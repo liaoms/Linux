@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <time.h>
+#include <sys/time.h>
 
 using namespace std;
 
@@ -48,4 +49,23 @@ void getCurrentTime(char* curTime, int type, int offset)
 		default:
 		break;
 	}
+}
+	   
+void getdifTime()
+{
+	struct timeval beginTv;
+	struct timeval endTv;
+	
+	gettimeofday(&beginTv, NULL);
+	
+	usleep(100);
+	
+	//gettimeofday参数2为时区参数结构体，不常用，直接给NULL
+	gettimeofday(&endTv, NULL);
+	
+	//获取两段时间微妙间隔
+	int usec = (endTv.tv_sec - beginTv.tv_sec) * 1000000 + (endTv.tv_usec - beginTv.tv_usec);
+	
+	cout << "时间间隔 : " << usec << " 微妙" << endl; 
+
 }
