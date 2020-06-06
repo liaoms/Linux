@@ -6,6 +6,6 @@
 
 void getSecTime();
 
-void getCurrentTime(char* curTime, int type);
+void getCurrentTime(char* curTime, int type, int offset);
 
 #endif
