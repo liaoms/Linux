@@ -4,6 +4,7 @@
 #include <string.h>
 #include <iostream>
 #include <string>
+#include <sys/stat.h>
 
 using namespace std;
 
@@ -158,7 +159,6 @@ int binFileTest()
 }
 
 
-
 int cpyFileWithBin(char* srcFile, char* desFile)
 {
 	/*
@@ -204,10 +204,29 @@ int cpyFileWithBin(char* srcFile, char* desFile)
 		fwrite(&buf, 1, readLen, pFWrite);  
 		fflush(pFWrite);  //强制将缓冲区写入文件
 	}
-	
 		
 	fclose(pFRead);
 	fclose(pFWrite);
 	
 	return 0;
+}
+
+int createDirIfNoExist(char * filePath)
+{
+	if( 0 != access(filePath, F_OK) )
+	{
+		if( 0 == mkdir(filePath, 00755) )  //创建目录权限为755
+		{
+			cout << "Create FilePath [" << filePath <<"] succeed!" << endl;
+		}
+		else
+		{
+			cout << "Create FilePath [" << filePath <<"] failed!" << endl;
+		}
+	}
+	else
+	{
+		cout << "filePath [" << filePath << "] already exist！" << endl; 
+	}
+	
 }
