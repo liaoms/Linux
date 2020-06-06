@@ -5,4 +5,6 @@ int txtFileTest();
 
 int binFileTest();
 
+int cpyFileWithBin(char* srcFile, char* desFile);
+
 #endif

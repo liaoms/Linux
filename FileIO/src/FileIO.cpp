@@ -145,8 +145,58 @@ int binFileTest()
 		fclose(pF);
 		pF = NULL;
 	}
+}
+
+
+
+int cpyFileWithBin(char* srcFile, char* desFile)
+{
+	/*
+	 * rb+ : 二进制可读可写，文件必须存在
+	 * wb+ : 二进制可读可写，文件不存在创建，存在重清空 
+	 * ab+ : 二进制可读可写，文件不存在创建，存在追加写
+	*/
 	
-	 
+	FILE* pFRead = NULL;
+	pFRead = fopen(srcFile, "rb");  //二进制只读打开
+	
+	if(NULL == pFRead)
+	{
+		printf("open file fail[%s]\n", srcFile);
+		return -1;
+	}
+	printf("open file succeed[%s]\n\n", srcFile);
+	
+	FILE* pFWrite = NULL;
+	pFWrite = fopen(desFile, "wb");  //二进制只写打开	
+	if(NULL == pFWrite)
+	{
+		printf("open file fail[%s]\n", desFile);
+		fclose(pFRead);
+		pFRead = NULL;
+		return -1;
+	}
+	printf("open file succeed[%s]\n\n", desFile);
+	
+	int readLen = 0;
+	char buf[500] = {0};
 	
 	
+	while(1)
+	{
+		readLen = fread(&buf, 1, sizeof(buf), pFRead); 
+		
+		if(0 == readLen)
+		{
+			break;
+		}
+		
+		fwrite(&buf, 1, readLen, pFWrite);  
+	}
+	
+		
+	fclose(pFRead);
+	fclose(pFWrite);
+	
+	return 0;
 }
