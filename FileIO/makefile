@@ -1,6 +1,6 @@
 .PHONY: all clean
 
-CC := gcc
+CC := g++
 
 DIR_INC := inc
 DIR_SRC := src
@@ -9,7 +9,7 @@ DIR_TARGET := target
 DIR := $(DIR_OBJS) $(DIR_TARGET)
 
 TPYE_INC := .h
-TPYE_SRC := .c
+TPYE_SRC := .cpp
 TPYE_OBJ := .o
 
 MKDIR := mkdir

@@ -3,4 +3,6 @@
 
 int txtFileTest();
 
+int binFileTest();
+
 #endif

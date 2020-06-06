@@ -2,7 +2,8 @@
 
 int main(int argc, char* argv[])
 {
-	txtFileTest();
+	//txtFileTest();
+	binFileTest();
 
 	return 0;
 }
